@@ -3,6 +3,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();   // ← Isso deve ser uma das primeiras linhas
 
 const app = express();
 const PORT = process.env.PORT || 3000;
