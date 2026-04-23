@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><%- include('../partials/head') %></head>
+<body>
+<div class="admin-layout">
+<%- include('sidebar', { active: 'dashboard' }) %>
+<main class="admin-main" style="margin-left:0;padding:16px;padding-top:72px">
+
+  <!-- Mobile Nav -->
+  <div class="admin-nav-mobile">
+    <a href="/admin" class="active">Dashboard</a>
+    <a href="/admin/animes">Animes</a>
+    <a href="/admin/episodes">Episodios</a>
+    <a href="/admin/users">Usuarios</a>
+    <a href="/admin/database">Database</a>
+    <a href="/admin/settings">Config</a>
+    <a href="/">Site</a>
+  </div>
+
+  <div class="admin-header-mobile">
+    <h1>Dashboard</h1>
+  </div>
+
+  <!-- DB Status Card -->
+  <div onclick="location.href='/admin/database'" style="cursor:pointer;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;transition:var(--transition)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="var(--primary)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+    <div style="flex:1">
+      <div style="font-size:12px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Banco de Dados</div>
+      <div style="font-size:15px;font-weight:700;color:var(--text)"><%= dbStatus ? dbStatus.label : 'JSON Local' %></div>
+    </div>
+    <span style="background:var(--primary);color:white;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px">Ativo</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="admin-stats">
+    <div class="admin-stat"><h3><%= stats.totalAnimes %></h3><p>Animes</p></div>
+    <div class="admin-stat"><h3><%= stats.totalEpisodes %></h3><p>Episodios</p></div>
+    <div class="admin-stat"><h3><%= stats.totalUsers %></h3><p>Usuarios</p></div>
+    <div class="admin-stat"><h3><%= stats.totalViews.toLocaleString() %></h3><p>Views</p></div>
+  </div>
+
+  <!-- Quick Add -->
+  <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+    <a href="/admin/animes/new" class="btn btn-primary">+ Anime</a>
+    <a href="/admin/episodes/new" class="btn btn-primary">+ Episodio</a>
+    <a href="/admin/database" class="btn btn-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+      Database
+    </a>
+  </div>
+
+  <!-- Recent Animes -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h3>Animes Recentes</h3>
+      <a href="/admin/animes" class="section-more">Ver todos</a>
+    </div>
+    <div class="admin-list">
+      <% if (!animes || !animes.length) { %>
+      <div class="admin-empty">Nenhum anime. <a href="/admin/animes/new">Adicionar</a></div>
+      <% } else { %>
+      <% animes.slice().reverse().slice(0,5).forEach(function(a) { %>
+      <div class="admin-list-item" onclick="location.href='/admin/animes/edit/<%= a.id %>'">
+        <img src="<%= a.cover || '' %>" alt="">
+        <div class="admin-list-item-info">
+          <div class="admin-list-item-title"><%= a.title || 'Sem titulo' %></div>
+          <div class="admin-list-item-meta"><%=(a.genres||[]).join(', ')%> &bull; <%= a.views||0 %> views</div>
+        </div>
+      </div>
+      <% }) %>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Recent Episodes -->
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h3>Episodios Recentes</h3>
+      <a href="/admin/episodes" class="section-more">Ver todos</a>
+    </div>
+    <div class="admin-list">
+      <% if (!episodes || !episodes.length) { %>
+      <div class="admin-empty">Nenhum episodio. <a href="/admin/episodes/new">Adicionar</a></div>
+      <% } else { %>
+      <% episodes.slice().reverse().slice(0,5).forEach(function(ep) { var anime = animes.find(function(x){return x.id===ep.animeId}); %>
+      <div class="admin-list-item" onclick="location.href='/admin/episodes/edit/<%= ep.id %>'">
+        <img src="<%= ep.thumbnail || (anime&&anime.cover) || '' %>" alt="">
+        <div class="admin-list-item-info">
+          <div class="admin-list-item-title">EP <%= ep.number||'?' %> - <%= ep.title||'' %></div>
+          <div class="admin-list-item-meta"><%= anime ? anime.title : '?' %></div>
+        </div>
+      </div>
+      <% }) %>
+      <% } %>
+    </div>
+  </div>
+
+</main>
+</div>
+</body>
+</html>

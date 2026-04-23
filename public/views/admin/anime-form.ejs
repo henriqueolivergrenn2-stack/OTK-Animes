@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><%- include('../partials/head') %></head>
+<body>
+<div class="admin-layout">
+<%- include('sidebar', { active: 'animes' }) %>
+<main class="admin-main" style="margin-left:0;padding:16px;padding-top:72px">
+  <div class="admin-nav-mobile">
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/animes" class="active">Animes</a>
+    <a href="/admin/episodes">Episodios</a>
+    <a href="/admin/users">Usuarios</a>
+    <a href="/admin/settings">Config</a>
+  </div>
+  <div class="admin-header-mobile">
+    <h1><%= anime ? 'Editar' : 'Novo' %> Anime</h1>
+  </div>
+  <form class="admin-form" method="POST" action="<%= anime ? '/admin/animes/edit/' + anime.id : '/admin/animes' %>">
+    <div>
+      <label>Titulo *</label>
+      <input type="text" name="title" value="<%= anime ? (anime.title||'') : '' %>" required placeholder="Nome do anime">
+    </div>
+    <div>
+      <label>Capa/Banner (URL da imagem) *</label>
+      <input type="url" name="cover" value="<%= anime ? (anime.cover||'') : '' %>" required placeholder="https://exemplo.com/imagem.jpg">
+      <p class="hint">URL direta da imagem (JPG/PNG)</p>
+    </div>
+    <% if (anime && anime.cover) { %>
+    <div>
+      <img src="<%= anime.cover %>" style="width:80px;border-radius:10px">
+    </div>
+    <% } %>
+    <div>
+      <label>Sinopse</label>
+      <textarea name="synopsis" placeholder="Descricao do anime" rows="4"><%= anime ? (anime.synopsis||'') : '' %></textarea>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Tags/Generos (separados por virgula)</label>
+        <input type="text" name="genres" value="<%= anime ? ((anime.genres||[]).join(', ')) : '' %>" placeholder="Acao, Aventura, Fantasia">
+      </div>
+      <div>
+        <label>Status</label>
+        <select name="status">
+          <option value="ongoing" <%= anime && anime.status==='ongoing'?'selected':'' %>>Em andamento</option>
+          <option value="completed" <%= anime && anime.status==='completed'?'selected':'' %>>Completo</option>
+          <option value="upcoming" <%= anime && anime.status==='upcoming'?'selected':'' %>>Em breve</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Nota (0-10)</label>
+        <input type="number" name="rating" value="<%= anime ? (anime.rating||'') : '' %>" min="0" max="10" step="0.1" placeholder="8.5">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button type="submit" class="btn btn-primary"><%= anime ? 'Salvar' : 'Criar' %></button>
+      <a href="/admin/animes" class="btn btn-secondary">Voltar</a>
+    </div>
+  </form>
+</main>
+</div>
+</body>
+</html>
