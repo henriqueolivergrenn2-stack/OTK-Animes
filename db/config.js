@@ -8,8 +8,11 @@ const path = require('path');
 const CONFIG_FILE = path.join(__dirname, '..', 'data', 'dbconfig.json');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 
-// Detecta ambiente serverless (Vercel, etc)
-const IS_SERVERLESS = process.env.VERCEL === '1' || !fs.existsSync(DATA_DIR);
+// ===== DETECCAO DE AMBIENTE =====
+// Vercel injeta VERCEL=1 automaticamente.
+// NAO usa !fs.existsSync(DATA_DIR) como criterio — isso causava bug no Termux
+// na primeira execucao antes de a pasta data/ ser criada.
+const IS_SERVERLESS = process.env.VERCEL === '1' || process.env.IS_SERVERLESS === '1';
 
 // Default config
 const DEFAULT_CONFIG = {
@@ -17,7 +20,7 @@ const DEFAULT_CONFIG = {
   providers: {
     memory: { enabled: true, label: 'Memory (Serverless)', description: 'Dados em RAM - ideal para Vercel/serverless sem disco' },
     json: { enabled: true, label: 'JSON Local (Padrao)', description: 'Dados salvos em arquivos .json na pasta data/' },
-    mongodb: { enabled: false, label: 'MongoDB Atlas', description: 'Banco NoSQL gratuito da MongoDB' },
+    mongodb: { enabled: false, label: 'MongoDB Atlas', description: 'Banco NoSQL gratuito da MongoDB', connectionString: '', database: 'otkanimes' },
     firebase: { enabled: false, label: 'Firebase Firestore', description: 'Banco NoSQL do Google (Spark plan gratuito)' },
     supabase: { enabled: false, label: 'Supabase PostgreSQL', description: 'PostgreSQL gratuito com API REST' },
     planetscale: { enabled: false, label: 'PlanetScale MySQL', description: 'MySQL serverless gratuito' },
@@ -32,21 +35,46 @@ const DEFAULT_CONFIG = {
 };
 
 function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    console.error('[Config] Nao foi possivel criar pasta data/:', err.message);
+  }
 }
 
 function loadConfig() {
-  // Serverless: usa memory sempre
+  // Serverless: usa memory sempre, sem tocar no disco
   if (IS_SERVERLESS) {
+    // Mas permite MongoDB via variavel de ambiente na Vercel
     const cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-    cfg.activeProvider = 'memory';
+    if (process.env.MONGODB_URI) {
+      cfg.activeProvider = 'mongodb';
+      cfg.providers.mongodb = {
+        ...cfg.providers.mongodb,
+        enabled: true,
+        connectionString: process.env.MONGODB_URI,
+        database: process.env.MONGODB_DB || 'otkanimes'
+      };
+    } else {
+      cfg.activeProvider = 'memory';
+    }
     return cfg;
   }
+
   ensureDir();
+
   if (!fs.existsSync(CONFIG_FILE)) {
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(DEFAULT_CONFIG, null, 2));
-    return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    const defaultCopy = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    try {
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultCopy, null, 2));
+    } catch (err) {
+      console.error('[Config] Erro ao criar dbconfig.json:', err.message);
+    }
+    return defaultCopy;
   }
+
   try {
     const saved = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
     const merged = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
@@ -60,6 +88,7 @@ function loadConfig() {
     }
     return merged;
   } catch (e) {
+    console.error('[Config] Erro ao ler dbconfig.json, usando padrao:', e.message);
     return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
   }
 }
@@ -67,11 +96,17 @@ function loadConfig() {
 function saveConfig(config) {
   if (IS_SERVERLESS) return;
   ensureDir();
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+  try {
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+  } catch (err) {
+    console.error('[Config] Erro ao salvar dbconfig.json:', err.message);
+  }
 }
 
 function getActiveProvider() {
-  if (IS_SERVERLESS) return 'memory';
+  if (IS_SERVERLESS) {
+    return process.env.MONGODB_URI ? 'mongodb' : 'memory';
+  }
   const cfg = loadConfig();
   return cfg.activeProvider || 'json';
 }
