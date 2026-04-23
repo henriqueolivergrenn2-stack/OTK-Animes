@@ -3,15 +3,11 @@
   "version": 2,
   "name": "otk-animes",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index.js" }
-  ],
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs20.x",
-      "memory": 1024,
-      "maxDuration": 60
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.js"
     }
-  },
+  ],
   "env": {
     "NODE_ENV": "production"
   }
