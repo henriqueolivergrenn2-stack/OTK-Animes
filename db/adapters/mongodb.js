@@ -7,59 +7,38 @@
 
 class MongoDBAdapter {
   constructor(config) {
-    this.config = config || {};
+    this.config = config;
     this.client = null;
     this.db = null;
   }
 
   async connect() {
     if (this.db) return this.db;
-
-    // ===== VALIDACAO: evita o erro "startsWith of undefined" =====
-    const uri = this.config.connectionString || this.config.uri || this.config.url;
-    if (!uri || typeof uri !== 'string' || uri.trim() === '') {
-      throw new Error(
-        'MongoDB: connectionString nao configurada ou invalida. ' +
-        'Acesse /admin/database > MongoDB > Configurar e insira sua connection string do Atlas.'
-      );
-    }
-    if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
-      throw new Error(
-        'MongoDB: connectionString invalida. Deve comecar com "mongodb://" ou "mongodb+srv://". ' +
-        'Copie a string correta do MongoDB Atlas.'
-      );
-    }
-    // ============================================================
-
     try {
       const { MongoClient } = require('mongodb');
-      this.client = new MongoClient(uri, {
+      this.client = new MongoClient(this.config.connectionString, {
         maxPoolSize: 10,
-        serverSelectionTimeoutMS: 8000,
-        connectTimeoutMS: 8000,
-        socketTimeoutMS: 8000
+        serverSelectionTimeoutMS: 5000
       });
       await this.client.connect();
       this.db = this.client.db(this.config.database || 'otkanimes');
-      console.log('[MongoDB] Conectado com sucesso ao banco:', this.config.database || 'otkanimes');
       return this.db;
     } catch (err) {
-      this.client = null;
-      this.db = null;
       throw new Error('MongoDB: ' + err.message);
     }
   }
 
   async init() {
     const db = await this.connect();
+    // Garante que as collections existem
     const collections = ['users', 'animes', 'episodes', 'history', 'settings'];
     for (const col of collections) {
       const exists = await db.listCollections({ name: col }).hasNext();
       if (!exists) await db.createCollection(col);
     }
     // Cria admin padrao se nao existir
-    const adminExists = await db.collection('users').findOne({ email: 'admin@otkanimes.com' });
-    if (!adminExists) {
+    const users = await db.collection('users').findOne({ email: 'admin@otkanimes.com' });
+    if (!users) {
       const bcrypt = require('bcryptjs');
       await db.collection('users').insertOne({
         id: 'admin-001', name: 'Administrador', email: 'admin@otkanimes.com',
@@ -67,15 +46,14 @@ class MongoDBAdapter {
         avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
         createdAt: new Date().toISOString()
       });
-      console.log('[MongoDB] Admin padrao criado: admin@otkanimes.com / admin123');
     }
   }
 
   async read(table) {
     const db = await this.connect();
     const docs = await db.collection(table).find({}).toArray();
-    // Remove _id do MongoDB para compatibilidade com o restante do sistema
-    return docs.map(({ _id, ...rest }) => rest);
+    // Remove _id do MongoDB para compatibilidade
+    return docs.map(d => { const { _id, ...rest } = d; return rest; });
   }
 
   async write(table, data) {
@@ -95,16 +73,6 @@ class MongoDBAdapter {
     } catch (err) {
       return { success: false, message: err.message };
     }
-  }
-
-  async disconnect() {
-    try {
-      if (this.client) {
-        await this.client.close();
-        this.client = null;
-        this.db = null;
-      }
-    } catch (_) {}
   }
 }
 

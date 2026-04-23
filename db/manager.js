@@ -25,33 +25,16 @@ function loadAdapter() {
   } catch (err) {
     console.error('[DB] Falha ao carregar adapter "' + provider + '":', err.message);
     console.error('[DB] Usando JSON local como fallback');
-    try {
-      const JsonAdapter = require('./adapters/json.js');
-      currentAdapter = new JsonAdapter({});
-      currentProvider = 'json';
-      return currentAdapter;
-    } catch (fallbackErr) {
-      console.error('[DB] Falha no fallback JSON:', fallbackErr.message);
-      // Retorna um adapter nulo seguro para nao derrubar o servidor
-      return createNullAdapter();
-    }
+    const JsonAdapter = require('./adapters/json.js');
+    currentAdapter = new JsonAdapter({});
+    currentProvider = 'json';
+    return currentAdapter;
   }
-}
-
-// Adapter nulo de emergencia — retorna arrays vazios sem crashar
-function createNullAdapter() {
-  return {
-    read: async () => [],
-    write: async () => {},
-    init: async () => {},
-    test: async () => ({ success: false, message: 'Nenhum adapter disponivel' })
-  };
 }
 
 async function readJSON(table) {
   try {
-    const result = await loadAdapter().read(table);
-    return Array.isArray(result) ? result : (result || []);
+    return await loadAdapter().read(table);
   } catch (err) {
     console.error('[DB] readJSON("' + table + '") erro:', err.message);
     return [];
@@ -71,19 +54,10 @@ async function initData() {
     await loadAdapter().init();
   } catch (err) {
     console.error('[DB] initData erro:', err.message);
-    // Nao re-lanca o erro — deixa o servidor subir mesmo assim
   }
 }
 
 async function testConnection(provider, config) {
-  // Valida antes de tentar carregar o adapter
-  if (!provider || typeof provider !== 'string') {
-    return { success: false, message: 'Provider invalido.' };
-  }
-  if (!config || typeof config !== 'object') {
-    return { success: false, message: 'Configuracao invalida.' };
-  }
-
   try {
     const adapterPath = path.join(__dirname, 'adapters', provider + '.js');
     const AdapterClass = require(adapterPath);
@@ -99,11 +73,6 @@ function getCurrentProvider() {
 }
 
 function reloadAdapter() {
-  // Limpa cache do require para o adapter atual poder ser recarregado
-  if (currentProvider) {
-    const adapterPath = path.join(__dirname, 'adapters', currentProvider + '.js');
-    try { delete require.cache[require.resolve(adapterPath)]; } catch (_) {}
-  }
   currentAdapter = null;
   currentProvider = null;
   return loadAdapter();
