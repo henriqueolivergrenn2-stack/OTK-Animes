@@ -1,0 +1,65 @@
+{
+  "activeProvider": "json",
+  "providers": {
+    "json": {
+      "enabled": true,
+      "label": "JSON Local (Padrao)",
+      "description": "Dados salvos em arquivos .json na pasta data/"
+    },
+    "mongodb": {
+      "enabled": false,
+      "label": "MongoDB Atlas",
+      "description": "Banco NoSQL gratuito da MongoDB"
+    },
+    "firebase": {
+      "enabled": false,
+      "label": "Firebase Firestore",
+      "description": "Banco NoSQL do Google (Spark plan gratuito)"
+    },
+    "supabase": {
+      "enabled": false,
+      "label": "Supabase PostgreSQL",
+      "description": "PostgreSQL gratuito com API REST"
+    },
+    "planetscale": {
+      "enabled": false,
+      "label": "PlanetScale MySQL",
+      "description": "MySQL serverless gratuito"
+    },
+    "neon": {
+      "enabled": false,
+      "label": "Neon PostgreSQL",
+      "description": "PostgreSQL serverless gratuito"
+    },
+    "mysql": {
+      "enabled": false,
+      "label": "MySQL",
+      "description": "MySQL proprio (local, RDS, etc)"
+    },
+    "postgres": {
+      "enabled": false,
+      "label": "PostgreSQL",
+      "description": "PostgreSQL proprio (local, RDS, etc)"
+    },
+    "sqlite": {
+      "enabled": false,
+      "label": "SQLite Local",
+      "description": "Banco SQLite local (.db file)"
+    },
+    "redis": {
+      "enabled": false,
+      "label": "Redis Cloud",
+      "description": "Cache/DB Redis gratuito"
+    },
+    "dynamodb": {
+      "enabled": false,
+      "label": "AWS DynamoDB",
+      "description": "NoSQL da AWS (free tier)"
+    },
+    "cockroachdb": {
+      "enabled": false,
+      "label": "CockroachDB",
+      "description": "PostgreSQL distribuido gratuito"
+    }
+  }
+}

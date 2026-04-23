@@ -1,0 +1,202 @@
+[
+  {
+    "id": "53a91a9e-5107-487b-8b30-2a0349f4dbc0",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 1",
+    "number": 1,
+    "videoUrl": "https://archive.org/download/episodio-1_20260418/Epis%C3%B3dio%201.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-1_20260418/episodio-1_20260418.thumbs/Epis%C3%B3dio%201_000300.jpg",
+    "createdAt": "2026-04-21T18:45:15.754Z"
+  },
+  {
+    "id": "a36dd4ac-01b6-438f-b799-729df154edb2",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 2",
+    "number": 2,
+    "videoUrl": "https://archive.org/download/episodio-2_20260418/Epis%C3%B3dio%202.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-2_20260418/episodio-2_20260418.thumbs/Epis%C3%B3dio%202_000360.jpg",
+    "createdAt": "2026-04-21T19:12:55.833Z"
+  },
+  {
+    "id": "9a3a8f81-eda9-43bf-898a-37eef62b8260",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 3",
+    "number": 3,
+    "videoUrl": "https://archive.org/download/episodio-3_20260418/Epis%C3%B3dio%203.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-3_20260418/episodio-3_20260418.thumbs/Epis%C3%B3dio%203_000420.jpg",
+    "createdAt": "2026-04-21T19:34:24.623Z"
+  },
+  {
+    "id": "5560ead5-0e34-46aa-a640-9a68db54a210",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 4",
+    "number": 4,
+    "videoUrl": "https://archive.org/download/episodio-4_20260418/Epis%C3%B3dio%204.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-4_20260418/episodio-4_20260418.thumbs/Epis%C3%B3dio%204_000360.jpg",
+    "createdAt": "2026-04-21T19:35:53.435Z"
+  },
+  {
+    "id": "550204bb-bac8-4fe2-8b4a-998c8b583a8d",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 5",
+    "number": 5,
+    "videoUrl": "https://archive.org/download/episodio-5_20260418/Epis%C3%B3dio%205.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-5_20260418/episodio-5_20260418.thumbs/Epis%C3%B3dio%205_000480.jpg",
+    "createdAt": "2026-04-21T19:36:35.827Z"
+  },
+  {
+    "id": "28464246-2d55-4273-9ab8-fdda42c4121b",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 6",
+    "number": 6,
+    "videoUrl": "https://archive.org/download/episodio-6_20260418/Epis%C3%B3dio%206.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-6_20260418/episodio-6_20260418.thumbs/Epis%C3%B3dio%206_000300.jpg",
+    "createdAt": "2026-04-21T19:37:19.062Z"
+  },
+  {
+    "id": "7a208b3f-6619-4743-a8d4-b989f2b5c6a2",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 7",
+    "number": 7,
+    "videoUrl": "https://archive.org/download/episodio-7_20260418/Epis%C3%B3dio%207.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-7_20260418/episodio-7_20260418.thumbs/Epis%C3%B3dio%207_000360.jpg",
+    "createdAt": "2026-04-21T19:37:51.804Z"
+  },
+  {
+    "id": "9eb8af76-8c6a-4acc-ac86-80709c0f238d",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 8",
+    "number": 8,
+    "videoUrl": "https://archive.org/download/temporada-1-x-8-episodio-08/Temporada%201%20x%208%20-%20Epis%C3%B3dio%2008.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/temporada-1-x-8-episodio-08/temporada-1-x-8-episodio-08.thumbs/Temporada%201%20x%208%20-%20Epis%C3%B3dio%2008_000360.jpg",
+    "createdAt": "2026-04-22T00:07:54.967Z"
+  },
+  {
+    "id": "a5bf0e2c-4669-4eab-9849-6f95a8e25928",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 1",
+    "number": 1,
+    "videoUrl": "https://archive.org/download/episodio-01_20260418_2008/Epis%C3%B3dio%2001.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-01_20260418_2008/episodio-01_20260418_2008.thumbs/Epis%C3%B3dio%2001_000480.jpg",
+    "createdAt": "2026-04-22T00:12:22.275Z"
+  },
+  {
+    "id": "b80b2226-9117-47b4-b5f6-e8fc3272a70f",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 2",
+    "number": 2,
+    "videoUrl": "https://archive.org/download/episodio-02_20260418/Epis%C3%B3dio%2002.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-02_20260418/episodio-02_20260418.thumbs/Epis%C3%B3dio%2002_000540.jpg",
+    "createdAt": "2026-04-22T01:20:19.979Z"
+  },
+  {
+    "id": "20a60d29-94c1-4b70-bf90-58a740e8103f",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 3",
+    "number": 3,
+    "videoUrl": "https://archive.org/download/episodio-03_20260418_2104/Epis%C3%B3dio%2003.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-03_20260418_2104/episodio-03_20260418_2104.thumbs/Epis%C3%B3dio%2003_000480.jpg",
+    "createdAt": "2026-04-22T01:20:51.468Z"
+  },
+  {
+    "id": "6133424a-88ba-4090-8f48-cea745f34455",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 4",
+    "number": 4,
+    "videoUrl": "https://archive.org/download/episodio-04_20260418/Epis%C3%B3dio%2004.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-04_20260418/episodio-04_20260418.thumbs/Epis%C3%B3dio%2004_000480.jpg",
+    "createdAt": "2026-04-22T01:21:25.869Z"
+  },
+  {
+    "id": "20f3f616-7456-484d-94be-f9a23df09b2f",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 5",
+    "number": 5,
+    "videoUrl": "https://archive.org/download/episodio-05_20260418_2123/Epis%C3%B3dio%2005.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-05_20260418_2123/episodio-05_20260418_2123.thumbs/Epis%C3%B3dio%2005_000420.jpg",
+    "createdAt": "2026-04-22T01:24:42.161Z"
+  },
+  {
+    "id": "c425f423-88d3-47d3-9943-0b2fe66296ec",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 6",
+    "number": 6,
+    "videoUrl": "https://archive.org/download/episodio-06_202604/Epis%C3%B3dio%2006.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-06_202604/episodio-06_202604.thumbs/Epis%C3%B3dio%2006_000300.jpg",
+    "createdAt": "2026-04-22T01:25:14.192Z"
+  },
+  {
+    "id": "236013f5-6a80-43f5-95e9-b0dc354590df",
+    "animeId": "",
+    "title": "Episodio 7",
+    "number": 7,
+    "videoUrl": "https://archive.org/download/episodio-07_20260418/Epis%C3%B3dio%2007.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-07_20260418/episodio-07_20260418.thumbs/Epis%C3%B3dio%2007_000300.jpg",
+    "createdAt": "2026-04-22T01:26:01.617Z"
+  },
+  {
+    "id": "fa3b6cee-a179-4163-bf77-a74953c01327",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 8",
+    "number": 8,
+    "videoUrl": "https://archive.org/download/episodio-08_20260418/Epis%C3%B3dio%2008.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-08_20260418/episodio-08_20260418.thumbs/Epis%C3%B3dio%2008_000360.jpg",
+    "createdAt": "2026-04-22T01:26:35.598Z"
+  },
+  {
+    "id": "1f1be9d0-3a0a-4889-908e-ad4bcb05afb3",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 9",
+    "number": 9,
+    "videoUrl": "https://archive.org/download/episodio-09_20260418/Epis%C3%B3dio%2009.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-09_20260418/episodio-09_20260418.thumbs/Epis%C3%B3dio%2009_000600.jpg",
+    "createdAt": "2026-04-22T01:27:32.653Z"
+  },
+  {
+    "id": "2021f96c-3ab1-46d3-8c3e-12c29ee09063",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 10",
+    "number": 10,
+    "videoUrl": "https://archive.org/download/episodio-10_20260418_2311/Epis%C3%B3dio%2010.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-10_20260418_2311/episodio-10_20260418_2311.thumbs/Epis%C3%B3dio%2010_000360.jpg",
+    "createdAt": "2026-04-22T01:30:49.417Z"
+  },
+  {
+    "id": "46a88947-373e-446c-bcb9-4456ed993d8e",
+    "animeId": "cb0ce784-dc84-4269-9ebc-4f2eafe2045e",
+    "title": "Episodio 11",
+    "number": 11,
+    "videoUrl": "https://archive.org/download/episodio-11_20260418_2315/Epis%C3%B3dio%2011.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-11_20260418_2315/episodio-11_20260418_2315.thumbs/Epis%C3%B3dio%2011_000540.jpg",
+    "createdAt": "2026-04-22T01:31:21.412Z"
+  },
+  {
+    "id": "82dda2c4-0d4d-4bb8-96b3-ced576d3e2b5",
+    "animeId": "5b38370a-af53-4ded-8fa1-95b1fa57747f",
+    "title": "Episodio 12",
+    "number": 12,
+    "videoUrl": "https://archive.org/download/episodio-12_20260418_2318/Epis%C3%B3dio%2012.mp4",
+    "synopsis": "",
+    "thumbnail": "https://archive.org/download/episodio-12_20260418_2318/episodio-12_20260418_2318.thumbs/Epis%C3%B3dio%2012_000660.jpg",
+    "createdAt": "2026-04-22T01:32:02.119Z"
+  }
+]

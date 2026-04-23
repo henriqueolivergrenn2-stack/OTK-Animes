@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><%- include('../partials/head') %></head>
+<body>
+<div class="admin-layout">
+<%- include('sidebar', { active: 'episodes' }) %>
+<main class="admin-main" style="margin-left:0;padding:16px;padding-top:72px">
+  <div class="admin-nav-mobile">
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/animes">Animes</a>
+    <a href="/admin/episodes" class="active">Episodios</a>
+    <a href="/admin/users">Usuarios</a>
+    <a href="/admin/settings">Config</a>
+  </div>
+  <div class="admin-header-mobile">
+    <h1><%= episode ? 'Editar' : 'Novo' %> Episodio</h1>
+  </div>
+  <form class="admin-form" method="POST" action="<%= episode ? '/admin/episodes/edit/' + episode.id : '/admin/episodes' %>">
+    <div>
+      <label>Anime *</label>
+      <select name="animeId" required>
+        <option value="">Selecione...</option>
+        <% (animes||[]).forEach(function(a) { %>
+        <option value="<%= a.id %>" <%= episode && episode.animeId===a.id?'selected':'' %>><%= a.title||'' %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-row">
+      <div>
+        <label>Numero do EP *</label>
+        <input type="number" name="number" value="<%= episode?(episode.number||''):'' %>" required min="1" placeholder="1">
+      </div>
+      <div>
+        <label>Titulo do EP</label>
+        <input type="text" name="title" value="<%= episode?(episode.title||''):'' %>" placeholder="Deixe em branco para EP X">
+      </div>
+    </div>
+    <div>
+      <label>URL do Video *</label>
+      <input type="url" name="videoUrl" value="<%= episode?(episode.videoUrl||''):'' %>" required placeholder="https://exemplo.com/video.mp4">
+      <p class="hint">Aceita MP4, M3U8, links diretos</p>
+    </div>
+    <div>
+      <label>Thumbnail (URL opcional)</label>
+      <input type="url" name="thumbnail" value="<%= episode?(episode.thumbnail||''):'' %>" placeholder="https://exemplo.com/thumb.jpg">
+      <p class="hint">Se deixar em branco, usa a capa do anime</p>
+    </div>
+    <div>
+      <label>Sinopse (opcional)</label>
+      <textarea name="synopsis" placeholder="Resumo do episodio" rows="3"><%= episode?(episode.synopsis||''):'' %></textarea>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button type="submit" class="btn btn-primary"><%= episode ? 'Salvar' : 'Criar' %></button>
+      <a href="/admin/episodes" class="btn btn-secondary">Voltar</a>
+    </div>
+  </form>
+</main>
+</div>
+</body>
+</html>

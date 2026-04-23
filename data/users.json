@@ -1,0 +1,11 @@
+[
+  {
+    "id": "admin-001",
+    "name": "Administrador",
+    "email": "admin@otkanimes.com",
+    "password": "$2a$10$vRe9USBktywMCQbjAe4L2.h2nPkLNEqJsdz9CZnigOZqtwHDQ2bIW",
+    "role": "admin",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=admin",
+    "createdAt": "2026-04-23T00:27:49.227Z"
+  }
+]
