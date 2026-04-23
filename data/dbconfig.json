@@ -1,15 +1,22 @@
 {
-  "activeProvider": "json",
+  "activeProvider": "mongodb",
   "providers": {
+    "memory": {
+      "enabled": true,
+      "label": "Memory (Serverless)",
+      "description": "Dados em RAM - ideal para Vercel/serverless sem disco"
+    },
     "json": {
       "enabled": true,
       "label": "JSON Local (Padrao)",
       "description": "Dados salvos em arquivos .json na pasta data/"
     },
     "mongodb": {
-      "enabled": false,
+      "enabled": true,
       "label": "MongoDB Atlas",
-      "description": "Banco NoSQL gratuito da MongoDB"
+      "description": "Banco NoSQL gratuito da MongoDB",
+      "connectionString": "mongodb+srv://riqueoliver8:98292088jJ%40@cluster0.bmakzhr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      "database": ""
     },
     "firebase": {
       "enabled": false,
