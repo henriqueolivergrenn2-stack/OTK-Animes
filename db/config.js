@@ -8,10 +8,14 @@ const path = require('path');
 const CONFIG_FILE = path.join(__dirname, '..', 'data', 'dbconfig.json');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 
-// Default config = JSON local
+// Detecta ambiente serverless (Vercel, etc)
+const IS_SERVERLESS = process.env.VERCEL === '1' || !fs.existsSync(DATA_DIR);
+
+// Default config
 const DEFAULT_CONFIG = {
-  activeProvider: 'json',
+  activeProvider: IS_SERVERLESS ? 'memory' : 'json',
   providers: {
+    memory: { enabled: true, label: 'Memory (Serverless)', description: 'Dados em RAM - ideal para Vercel/serverless sem disco' },
     json: { enabled: true, label: 'JSON Local (Padrao)', description: 'Dados salvos em arquivos .json na pasta data/' },
     mongodb: { enabled: false, label: 'MongoDB Atlas', description: 'Banco NoSQL gratuito da MongoDB' },
     firebase: { enabled: false, label: 'Firebase Firestore', description: 'Banco NoSQL do Google (Spark plan gratuito)' },
@@ -32,6 +36,12 @@ function ensureDir() {
 }
 
 function loadConfig() {
+  // Serverless: usa memory sempre
+  if (IS_SERVERLESS) {
+    const cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    cfg.activeProvider = 'memory';
+    return cfg;
+  }
   ensureDir();
   if (!fs.existsSync(CONFIG_FILE)) {
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(DEFAULT_CONFIG, null, 2));
@@ -39,7 +49,6 @@ function loadConfig() {
   }
   try {
     const saved = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    // Merge com defaults para garantir que novos providers aparecam
     const merged = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
     if (saved.activeProvider) merged.activeProvider = saved.activeProvider;
     if (saved.providers) {
@@ -56,16 +65,19 @@ function loadConfig() {
 }
 
 function saveConfig(config) {
+  if (IS_SERVERLESS) return;
   ensureDir();
   fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
 }
 
 function getActiveProvider() {
+  if (IS_SERVERLESS) return 'memory';
   const cfg = loadConfig();
   return cfg.activeProvider || 'json';
 }
 
 function setActiveProvider(provider) {
+  if (IS_SERVERLESS) return;
   const cfg = loadConfig();
   cfg.activeProvider = provider;
   saveConfig(cfg);
@@ -77,6 +89,7 @@ function getProviderConfig(provider) {
 }
 
 function updateProviderConfig(provider, settings) {
+  if (IS_SERVERLESS) return true;
   const cfg = loadConfig();
   if (!cfg.providers[provider]) return false;
   cfg.providers[provider] = { ...cfg.providers[provider], ...settings };
@@ -97,5 +110,6 @@ module.exports = {
   getProviderConfig,
   updateProviderConfig,
   getAllProviders,
-  DEFAULT_CONFIG
+  DEFAULT_CONFIG,
+  IS_SERVERLESS
 };

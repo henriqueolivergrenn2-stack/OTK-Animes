@@ -18,11 +18,13 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
+// Session - memory store (funciona em serverless)
 app.use(session({
-  secret: 'otkanimes-secret-v3-2024',
+  secret: process.env.SESSION_SECRET || 'otkanimes-secret-v3-2024',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
+  cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 },
+  store: new session.MemoryStore()
 }));
 
 // ===== INIT DB =====
